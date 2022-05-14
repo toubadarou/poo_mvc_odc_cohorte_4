@@ -1,4 +1,7 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
+use \DateTime;
 class Demande extends Model
 {
     private int $id;
@@ -85,5 +88,11 @@ class Demande extends Model
         $this->date = $date;
 
         return $this;
+    }
+    public static function findAll(): array
+    {
+        $sql = "select * from " . self::table();
+        echo $sql;
+        return  [];
     }
 }

@@ -1,6 +1,10 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
 class RP extends User
 {
+    protected static string $role = " ROLE_RP";
+
     //Navigational functions:
 
     //OneToMeny with Professeur
@@ -23,5 +27,11 @@ class RP extends User
     public function __construct()
     {
         $this->role = "ROLE_RP";
+    }
+    public static function findAll(): array
+    {
+        $sql = "select * from " . self::table() . " where role like '" . self::$role . "'";
+        echo $sql;
+        return  [];
     }
 }

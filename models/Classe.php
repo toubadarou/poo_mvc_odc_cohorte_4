@@ -1,4 +1,6 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
 class Classe extends Model
 {
     private int $id;
@@ -22,7 +24,7 @@ class Classe extends Model
     {
          $sql = "select p.* from personne p,classe c
         where p.id=c.personne_id
-        and p.role like ''
+        and p.role like 'ROLE_RP'
         and c.id=" . $this->id;
         return new RP;
     }
@@ -30,6 +32,9 @@ class Classe extends Model
     //OneToMeny with Incription
     public function inscriptions(): array
     {
+        $sql = "select i.* from inscription i,classe c
+        where i.id=c.inscription_id
+        and c.id=" . $this->id;
         return [];
     }
     // construct function
@@ -115,5 +120,11 @@ class Classe extends Model
         $this->niveau = $niveau;
 
         return $this;
+    }
+    public static function findAll(): array
+    {
+        $sql = "select * from " . self::table() ;
+        echo $sql;
+        return  [];
     }
 }

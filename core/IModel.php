@@ -1,5 +1,5 @@
 <?php
-
+namespace App\core;
 
 interface IModel
 {
@@ -10,5 +10,5 @@ interface IModel
     public static function delete(int $id): int;
     public static function findAll(): array;
     public static function findById(int $id): object|null;
-    public static function findBy(string $sql, array $data = null, $single = false): object|null|array;
+    public static function findBy(string $sql, array $data = [], $single = false): object|null|array;
 }

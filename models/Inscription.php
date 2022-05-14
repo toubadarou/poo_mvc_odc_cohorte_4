@@ -1,4 +1,8 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
+use \DateTime;
+
 class Inscription extends Model
 {
     //instance attributs
@@ -81,5 +85,11 @@ class Inscription extends Model
         $this->id = $id;
 
         return $this;
+    }
+    public static function findAll(): array
+    {
+        $sql = "select * from " . self::table();
+        echo $sql;
+        return  [];
     }
 }

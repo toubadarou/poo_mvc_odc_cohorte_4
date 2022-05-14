@@ -1,16 +1,21 @@
 <?php
+namespace App\model;
+
+use App\core\Model;
+
 abstract class Personne extends Model
 {
     protected int $id;
-    protected string $fullName;
+    protected  string $fullName;
     protected static string $role;
     protected static int $nbrPersonne;
-     // construct function
-     public function __construct()
-     {
-         $this->table = "personne";
-     }
- 
+    
+    // construct function
+    public  function __construct()
+    {
+        // self::$table = "personne";
+    }
+    
 
     /**
      * Get the value of id
@@ -93,7 +98,8 @@ abstract class Personne extends Model
     }
     public static function findAll(): array
     {
-        $sql="select * from  personne where role like '".self::$role."'";
+        $sql = "select * from " . self::table();
+        echo $sql;
         return  [];
     }
 }

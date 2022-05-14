@@ -1,4 +1,6 @@
 <?php
+namespace App\Model;
+use App\Core\Model;
 class Module extends Model
 {
     private int $id;
@@ -56,5 +58,11 @@ class Module extends Model
         $this->name = $name;
 
         return $this;
+    }
+    public static function findAll(): array
+    {
+        $sql = "select * from " . self::table();
+        echo $sql;
+        return  [];
     }
 }
