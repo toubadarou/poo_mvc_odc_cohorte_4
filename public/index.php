@@ -1,15 +1,10 @@
 <?php
 require("../vendor/autoload.php");
 
-/* use App\Model\AC;
-use App\Model\AC;
-use App\Model\RP;
-use App\Model\Etudiant;
-use App\Model\Professeur;
-use App\Model\Inscription; */
-
-use App\core\Database;
 use App\model\Professeur;
+
+
+
 
 
 

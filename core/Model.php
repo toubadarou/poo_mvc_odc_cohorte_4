@@ -1,6 +1,7 @@
 <?php
 
 namespace App\core;
+
 class Model implements IModel
 {
     protected static string $table;
@@ -56,7 +57,7 @@ class Model implements IModel
     }
     public static function findBy(string $sql, array $data = [], $single = false): object|null|array
     {
-        $sql = "select from" ;
+        $sql = "select from";
         $result = self::executeQuery($sql, "ExcuteSelect");
         return  $result;
     }

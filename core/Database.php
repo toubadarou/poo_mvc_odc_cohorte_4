@@ -6,11 +6,12 @@ namespace App\core;
 class  Database
 {
     protected \PDO|null $pdo = null;
-    
+
     public function connexionDB(): void
     {
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=poo_mvc_db', 'poo_mvc_user','poo_mvc_pass');
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=test', 'root', '');
+            echo "la connexion est passée";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -19,7 +20,7 @@ class  Database
     {
         $this->pdo = null;
     }
-    public function excuteUpdate(string $sql, array $data=[], bool $single = false): int
+    public function excuteUpdate(string $sql, array $data = [], bool $single = false): int
     {
         $query = $this->pdo->prepare($sql);
         $query->execute($data);
