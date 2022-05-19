@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Model;
+
 use App\Core\Model;
+
 class Etudiant extends User
 {
     // Instancing attributs
@@ -11,23 +14,23 @@ class Etudiant extends User
 
     // Navigational functions:
     //OneToMeny with Demande
-    public function demandes(): array
+    public function demandes(): array|null
     {
-        $sql ="select d.* from demande d,personne p
+        $sql = "select d.* from demande d,personne p
                             where d.id=d.personne_id
                             and p.role like 'ROLE_ETUDIANT'
-                            and p.id=".$this->id;
-        return [];
+                            and p.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     //OneToMeny with Inscription
-    public function inscriptions(): array
+    public function inscriptions(): array|null
     {
-        $sql ="select i.* from inscription i,personne p
+        $sql = "select i.* from inscription i,personne p
                             where i.id=i.personne_etudiant_id
                             and p.role like 'ROLE_ETUDIANT'
-                            and p.id=".$this->id;
-        return [];
+                            and p.id=?";
+        return parent::findById($sql, [$this->id]);
     }
     // construct function
     public function __construct()
@@ -97,7 +100,6 @@ class Etudiant extends User
     public static function findAll(): array
     {
         $sql = "select * from " . self::table() . " where role like '" . self::$role . "'";
-        echo $sql;
-        return  [];
+        return  parent::findBy($sql);
     }
 }

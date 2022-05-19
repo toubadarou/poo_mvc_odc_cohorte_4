@@ -10,8 +10,9 @@ class  Database
     public function connexionDB(): void
     {
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=test', 'root', '');
-            echo "la connexion est passée";
+            // die;
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=poo_base', 'root', '');
+            echo "la connexion est passée \n";
         } catch (\Throwable $th) {
             echo $th->getMessage();
         }
@@ -19,6 +20,7 @@ class  Database
     public function closeConnexinDB(): void
     {
         $this->pdo = null;
+        // echo "closeConnexinDB";
     }
     public function excuteUpdate(string $sql, array $data = [], bool $single = false): int
     {
@@ -30,13 +32,16 @@ class  Database
     public function excuteSelect(string $sql, array $data = [], bool $single = false): object|array|null
     {
         $query = $this->pdo->prepare($sql);
-        $query->execute($data);
+        // die("into excuteSelect ");
+        $re = $query->execute($data);
         if ($single) {
-            $result = $query->fetch();
+            $result = $query->fetch(\PDO::FETCH_OBJ);
+            if ($query->rowCount()==0) {
+                return null;
+            }
         } else {
-            $result = $query->fetchAll();
+            $result = $query->fetchAll(\PDO::FETCH_OBJ);
         }
-
         return $result;
     }
 }

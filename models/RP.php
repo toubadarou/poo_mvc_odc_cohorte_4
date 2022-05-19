@@ -31,7 +31,13 @@ class RP extends User
     public static function findAll(): array
     {
         $sql = "select * from " . self::table() . " where role like '" . self::$role . "'";
-        echo $sql;
-        return  [];
+        return  parent::findBy($sql);
+    }
+    public function insert(): int
+    {
+        $sql = "INSERT INTO personne (nom_complet, role, login,passWord) VALUES (?,?,?,?)";
+        $db = parent::executeQuery($sql, "excuteUpdate", [$this->fullName, self::$role, $this->login,$this->password]);
+        // die("in insert");
+        return $db;
     }
 }

@@ -4,7 +4,6 @@ namespace App\core;
 
 class Model implements IModel
 {
-    protected static string $table;
     protected static function dataBase(): Database
     {
         return new Database;
@@ -15,9 +14,9 @@ class Model implements IModel
         $db->connexionDB();
         if ($functionName == "excuteUpdate") {
             $result =  $db->excuteUpdate($sql, $data, $single);
-            // die("in executequery");
         } elseif ($functionName == "excuteSelect") {
             $result =  $db->excuteSelect($sql, $data, $single);
+            // die("in executequery");
         }
         $db->closeConnexinDB();
         return  $result;
@@ -25,6 +24,7 @@ class Model implements IModel
     public static function table(): string
     {
         $table = get_called_class();
+        $table=str_replace("App\\model\\","",$table);
         $table = ($table == "AC" or $table == "RP" or $table == "Etudiant" or $table == "Professeur" or $table == "Personne") ? "personne" : strtolower(($table));
         return $table;
     }
@@ -44,12 +44,6 @@ class Model implements IModel
         return $result;
     }
 
-    public static function findAll(): array
-    {
-        $sql = "select * from " . self::table();
-        $result = self::executeQuery($sql, "ExcuteSelect");
-        return $result;
-    }
     public static function findById(int $id): object|null
     {
         $sql = "select from " . self::table() . " where id=$id";
@@ -57,8 +51,13 @@ class Model implements IModel
     }
     public static function findBy(string $sql, array $data = [], $single = false): object|null|array
     {
-        $sql = "select from";
         $result = self::executeQuery($sql, "ExcuteSelect");
         return  $result;
+    }
+    public static function findAll(): array
+    {
+        $sql = "select * from " . self::table();
+        // $result = self::executeQuery($sql, "ExcuteSelect");
+        return [];
     }
 }

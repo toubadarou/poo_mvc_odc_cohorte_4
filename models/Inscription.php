@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Model;
+
 use App\Core\Model;
 use \DateTime;
 
@@ -19,16 +21,16 @@ class Inscription extends Model
         $sql = "select p.* from personne p,inscription i
                             where p.id=i.personne_ac_id
                             and p.role like 'ROLE_AC'
-                            and i.id=" . $this->id;
-        return new AC;
+                            and i.id=?";
+        return parent::findById($sql, [$this->id]);
     }
     //MenyToOne with AnneeScolaire
     public function  anneescolair(): AnneeScolaire
     {
         $sql = "select a.* from annee_scolair a,inscription i
         where a.id=i.annee_scolair_id
-        and i.id=" . $this->id;
-        return new AnneeScolaire;
+        and i.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     //MenyToOne with Etudiant
@@ -37,8 +39,8 @@ class Inscription extends Model
         $sql = "select p.* from personne p,inscription i
         where p.id=i.personne_etudiant_id
         and p.role like 'ROLE_ETUDIANT'
-        and i.id=" . $this->id;
-        return new Etudiant;
+        and i.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     // construct function
@@ -89,7 +91,6 @@ class Inscription extends Model
     public static function findAll(): array
     {
         $sql = "select * from " . self::table();
-        echo $sql;
-        return  [];
+        return  parent::findBy($sql);
     }
 }

@@ -9,15 +9,24 @@ class Module extends Model
     //Navigational functions:
 
     //MenyToMeny with Professeur
-    public function professeurs(): array
+    public function professeurs(): array|null
     {
-        return [];
+        $sql = "select p.* from personne p,module m
+        where p.id=m.personne_id
+        and p.role like 'ROLE_PROFESSEUR'
+        and m.id=?";
+        return parent::findById($sql, [$this->id]);
+
     }
 
     //MenyToOne with RP
     public function rp(): RP
     {
-        return new RP;
+        $sql = "select p.* from personne p,module m
+        where p.id=c.personne_id
+        and p.role like 'ROLE_RP'
+        and m.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     /**
@@ -62,7 +71,6 @@ class Module extends Model
     public static function findAll(): array
     {
         $sql = "select * from " . self::table();
-        echo $sql;
-        return  [];
+        return  parent::findBy($sql);
     }
 }

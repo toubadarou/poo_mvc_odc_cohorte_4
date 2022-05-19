@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Model;
+
 use App\Core\Model;
+
 class Classe extends Model
 {
     private int $id;
@@ -10,32 +13,32 @@ class Classe extends Model
 
     //Navigational function 
     //MenyToMeny with Professeur
-    public function Professeurs(): array
+    public function Professeurs(): array|null
     {
         $sql = "select p.* from personne p,classe c
         where p.id=c.personne_id
         and p.role like 'ROLE_PROFESSEUR'
-        and c.id=" . $this->id;
-        return [];
+        and c.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     //MenyToOne with RP
     public function rp(): RP
     {
-         $sql = "select p.* from personne p,classe c
+        $sql = "select p.* from personne p,classe c
         where p.id=c.personne_id
         and p.role like 'ROLE_RP'
-        and c.id=" . $this->id;
-        return new RP;
+        and c.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     //OneToMeny with Incription
-    public function inscriptions(): array
+    public function inscriptions(): array|null
     {
         $sql = "select i.* from inscription i,classe c
         where i.id=c.inscription_id
-        and c.id=" . $this->id;
-        return [];
+        and c.id=?";
+        return parent::findById($sql, [$this->id]);
     }
     // construct function
     public function __construct()
@@ -123,8 +126,7 @@ class Classe extends Model
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . self::table() ;
-        echo $sql;
-        return  [];
+        $sql = "select * from " . self::table();
+        return  parent::findBy($sql);
     }
 }

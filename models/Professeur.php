@@ -1,24 +1,34 @@
 <?php
 
 namespace App\model;
+
 class Professeur extends Personne
 {
     protected static string $role = " ROLE_PROFESSEUR";
     // protected static string $table = "professeur";
     private string $grade;
-    
+
     //Navigational functions:
-    
+
     //MenyToMeny with Classe
-    public function professeurs(): array
+    public function classe(): array|null
     {
-        return [];
+        $sql = "select c.* from classe c,personne p
+        where c.id=c.classe_id
+        and p.role like 'ROLE_PROFESSEUR'
+        and p.id=?";
+        return parent::findById($sql, [$this->id]);
+
     }
-    
+
     //MenyToMeny with Module
-    public function modules(): array
+    public function modules(): array|null
     {
-        return [];
+        $sql = "select m.* from module m,personne p
+        where m.id=c.module_id
+        and p.role like 'ROLE_PROFESSEUR'
+        and p.id=?";
+        return parent::findById($sql, [$this->id]);
     }
 
     //MenyToOne with RP
@@ -52,15 +62,14 @@ class Professeur extends Personne
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . self::table() . " where role like '" . self::$role . "'";
-        echo $sql;
-        return  [];
+        $sql = "select * from personne where role not like '".self::$role."'";
+        return  parent::findBy($sql);
     }
 
     public function insert(): int
     {
         $sql = "INSERT INTO personne (nom_complet, role, grade) VALUES (?,?,?)";
-        $db = self::executeQuery($sql, "excuteUpdate", [ $this->fullName, self::$role,$this-> grade]);
+        $db = self::executeQuery($sql, "excuteUpdate", [$this->fullName, self::$role, $this->grade]);
         // die("in insert");
         return $db;
     }

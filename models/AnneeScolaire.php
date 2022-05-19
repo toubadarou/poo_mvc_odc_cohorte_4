@@ -10,12 +10,12 @@ class AnneeScolaire extends Model
 
     //Navigational functions:
     //OneToMeny with Inscription
-    public function  inscriptions(): array
+    public function  inscriptions(): array|null
     {
         $sql = "select i.* from inscription i,annee_scolaire a
         where i.id=a.inscription_id
-        and a.id=" . $this->id;
-        return [];
+        and a.id=?";
+        return parent::findById($sql, [$this->id]);
     }
     // construct function
     public function __construct()
@@ -64,8 +64,7 @@ class AnneeScolaire extends Model
     public static function findAll(): array
     {
         $sql = "select * from " . parent::table() ;
-        echo $sql;
-        return  [];
+        return  parent::findBy($sql);
     }
 }
 
