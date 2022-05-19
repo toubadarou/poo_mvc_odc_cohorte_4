@@ -1,6 +1,11 @@
 <?php
+
 namespace App\controller;
-class DemandeController{
+
+use App\core\Controller;
+
+class DemandeController extends Controller
+{
     public function ListDemand()
     {
         # code...

@@ -1,6 +1,10 @@
-
 <?php
+
 namespace App\exception;
-class RouteNotFoundException extends \Exception{
-    public $message ="Route not found error 404";
+
+use Exception;
+
+class RouteNotFoundException extends Exception
+{
+    public $message = "Page not found error 404";
 }

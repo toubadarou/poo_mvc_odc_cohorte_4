@@ -1,6 +1,10 @@
 <?php
 namespace App\Controller;
-class ModuleController{
+
+use App\core\Controller;
+
+class ModuleController extends Controller
+ {
     public function AddModuleToTeacher()
     {
         # code...

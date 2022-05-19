@@ -1,6 +1,10 @@
 <?php
 namespace App\Controller;
-class InscriptionController{
+
+use App\core\Controller;
+
+class InscriptionController extends Controller
+{
     public function AddStudent()
     {
         # code...

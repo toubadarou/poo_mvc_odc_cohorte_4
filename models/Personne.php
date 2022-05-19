@@ -99,7 +99,6 @@ abstract class Personne extends Model
     public static function findAll(): array
     {
         $sql = "select * from " . self::table();
-        echo $sql;
-        return  [];
+        return  parent::findBy($sql);
     }
 }

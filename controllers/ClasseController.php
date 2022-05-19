@@ -1,9 +1,13 @@
 <?php
+
 namespace App\controller;
-class ClasseController{
+
+use App\core\Controller;
+
+class ClasseController extends Controller
+{
     public function CreateClass()
     {
-
     }
 
     public function ListClass()

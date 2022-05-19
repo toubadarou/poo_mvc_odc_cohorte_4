@@ -12,17 +12,17 @@ class Controller
     {
         $this->request = $request;
     }
-    public function render(string $path,array $data=[])
+    public function render(string $path, array $data = [])
     {
-        $data["Constantes"]=Constante::class;
-        $data["Request"]=$this->request;
+        $data["Constantes"] = Constante::class;
+        $data["Request"] = $this->request;
         //Dans une vue $Constante:: la constante
         //Dans une vue $Request la request
-        extract($data)
-        require_once(Constante::ROOT()."templates/".$path);
+        extract($data);
+        require_once(Constante::ROOT() . "templates/" . $path);
     }
     public function redirectToRoute(string $uri)
-    { 
-        header('location:'.Constante::WEB_ROOT.$uri);
+    {
+        header('location:' . Constante::WEB_ROOT . $uri);
     }
 }
