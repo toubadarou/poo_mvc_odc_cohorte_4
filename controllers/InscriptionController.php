@@ -1,9 +1,13 @@
 <?php
-namespace App\Controller;
 
-use App\core\Controller;
+namespace App\Controllers;
 
-class InscriptionController extends Controller
+use App\Core\ControllerMother;
+
+
+
+
+class InscriptionController extends ControllerMother
 {
     public function AddStudent()
     {

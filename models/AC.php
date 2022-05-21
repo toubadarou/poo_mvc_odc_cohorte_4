@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Model;
-die("in ac");
+
+use App\Model\User;
+
 class AC extends User
 {
-    protected static string $role = " ROLE_AC";
+    protected static string $role = "ROLE_AC";
 
     //Navigational attributs 
     //OneToMeny AC=>Inscription
@@ -36,7 +38,8 @@ class AC extends User
     }
     public static function findAll(): array
     {
-        $sql = "select * from personne where role like 'ROLE_AC' ";
+        $sql = "SELECT nom_complet,login,password,role FROM `personne` WHERE role like'".self::$role."'";
+
         return  parent::findBy($sql);
     }
     public function insert(): int

@@ -1,6 +1,9 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
+
+use App\Core\Session;
+
 
 class Role
 {

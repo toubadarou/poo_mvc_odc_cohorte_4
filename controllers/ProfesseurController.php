@@ -1,9 +1,11 @@
 <?php
-namespace App\Controller;
+namespace App\Controllers;
 
-use App\core\Controller;
+use App\Core\ControllerMother;
 
-class ProfesseurController extends Controller
+
+
+class ProfesseurController extends ControllerMother
 {
     
     public function AddTeacher()

@@ -1,6 +1,10 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
+
+use App\Core\Database;
+
+
 
 class Model implements IModel
 {

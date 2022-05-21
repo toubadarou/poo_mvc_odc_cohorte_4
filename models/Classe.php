@@ -4,6 +4,8 @@ namespace App\Model;
 
 use App\Core\Model;
 
+
+
 class Classe extends Model
 {
     private int $id;
@@ -124,9 +126,9 @@ class Classe extends Model
 
         return $this;
     }
-    public static function findAll(): array
+    public static function findAll(): array|null
     {
-        $sql = "select * from " . self::table();
+        $sql = "select * from  classe";
         return  parent::findBy($sql);
     }
 }

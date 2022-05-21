@@ -1,8 +1,9 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 use App\Model\User;
+
 
 class Session  
 {

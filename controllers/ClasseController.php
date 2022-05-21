@@ -1,10 +1,10 @@
 <?php
 
-namespace App\controller;
+namespace App\Controllers;
+use App\Core\ControllerMother;
 
-use App\core\Controller;
 
-class ClasseController extends Controller
+class ClasseController extends ControllerMother
 {
     public function CreateClass()
     {

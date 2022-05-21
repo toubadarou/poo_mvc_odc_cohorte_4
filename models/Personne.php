@@ -1,7 +1,9 @@
 <?php
-namespace App\model;
-use App\core\Model;
-use function App\core\dd;
+
+namespace App\Model;
+
+use App\Core\Model;
+
 abstract class Personne extends Model
 {
     protected int $id;

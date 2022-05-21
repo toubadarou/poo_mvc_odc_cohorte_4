@@ -3,13 +3,13 @@
 namespace App\Model;
 
 use App\Core\Model;
-use \DateTime;
+
 
 class Inscription extends Model
 {
     //instance attributs
     private int $id;
-    private DateTime $date;
+    private \DateTime $date;
     //Navigational attributs 
     //MenyTo One Inscription=>AC
     // private array $inscription;
@@ -90,7 +90,7 @@ class Inscription extends Model
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . self::table();
+        $sql = "select * from  inscription";
         return  parent::findBy($sql);
     }
 }

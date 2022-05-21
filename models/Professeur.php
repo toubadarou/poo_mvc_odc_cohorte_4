@@ -1,6 +1,10 @@
 <?php
 
-namespace App\model;
+namespace App\Model;
+
+use App\Model\RP;
+use App\Model\Personne;
+
 
 class Professeur extends Personne
 {

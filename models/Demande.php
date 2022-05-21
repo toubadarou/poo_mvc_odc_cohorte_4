@@ -1,12 +1,17 @@
 <?php
+
 namespace App\Model;
+
+use App\Model\AC;
+use App\Model\RP;
 use App\Core\Model;
-use \DateTime;
+use App\Model\Etudiant;
+
 class Demande extends Model
 {
     private int $id;
     private string $motif;
-    private DateTime $date;
+    private \DateTime $date;
     // Navigational functions:
     //MenyToOne with RP
     public function rp(): RP
@@ -91,7 +96,7 @@ class Demande extends Model
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . self::table();
+        $sql = "select * from Demande";
         return  parent::findBy($sql);
     }
 }

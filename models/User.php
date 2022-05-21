@@ -1,7 +1,8 @@
 <?php
-namespace App\model;
-use App\model\Personne;
-use function App\core\dd;
+
+namespace App\Model;
+
+use App\Model\Personne;
 
 abstract class User extends Personne
 {
@@ -70,7 +71,6 @@ abstract class User extends Personne
     public static function findAll(): array|null
     {
         $sql = "select * from personne where role not like 'ROLE_PROFESSEUR'";
-        dd("in user");
         return  parent::findBy($sql);
     }
     public static function findUserByLoginAndPassword(string $login, string $passWord)

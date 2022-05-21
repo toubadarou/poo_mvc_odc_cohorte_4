@@ -1,9 +1,13 @@
 <?php
-namespace App\Controller;
 
-use App\core\Controller;
+namespace App\Controllers;
 
-class EtudiantController extends Controller
+use App\Core\ControllerMother;
+
+
+
+
+class EtudiantController extends ControllerMother
 {
     
 }

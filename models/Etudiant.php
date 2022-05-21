@@ -2,12 +2,14 @@
 
 namespace App\Model;
 
-use App\Core\Model;
+use App\Model\User;
+
+
 
 class Etudiant extends User
 {
     // Instancing attributs
-    protected static string $role = " ROLE_ETUDIANT";
+    protected static string $role = "ROLE_ETUDIANT";
     private int $matricule;
     private string $sexe;
     private string $adresse;
@@ -99,7 +101,7 @@ class Etudiant extends User
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . self::table() . " where role like '" . self::$role . "'";
+        $sql = "select * from  personne where role like '" . self::$role . "'";
         return  parent::findBy($sql);
     }
 }

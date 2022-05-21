@@ -1,6 +1,10 @@
 <?php
+
 namespace App\Model;
+
 use App\Core\Model;
+
+
 class AnneeScolaire extends Model
 {
     protected int $id;
@@ -63,7 +67,7 @@ class AnneeScolaire extends Model
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . parent::table() ;
+        $sql = "select * from annee_scolaire" ;
         return  parent::findBy($sql);
     }
 }

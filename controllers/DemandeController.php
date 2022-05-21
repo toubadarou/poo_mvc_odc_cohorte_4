@@ -1,10 +1,13 @@
 <?php
 
-namespace App\controller;
+namespace App\Controllers;
 
-use App\core\Controller;
+use App\Core\ControllerMother;
 
-class DemandeController extends Controller
+
+
+
+class DemandeController extends ControllerMother
 {
     public function ListDemand()
     {

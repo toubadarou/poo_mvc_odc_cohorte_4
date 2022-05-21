@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Model;
+
 use App\Core\Model;
+
 class Module extends Model
 {
     private int $id;
@@ -70,7 +73,7 @@ class Module extends Model
     }
     public static function findAll(): array
     {
-        $sql = "select * from " . self::table();
+        $sql = "select * from module";
         return  parent::findBy($sql);
     }
 }
