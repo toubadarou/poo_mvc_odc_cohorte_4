@@ -51,10 +51,10 @@ class Model implements IModel
     }
     public static function findBy(string $sql, array $data = [], $single = false): object|null|array
     {
-        $result = self::executeQuery($sql, "ExcuteSelect");
+        $result = self::executeQuery($sql, "excuteSelect");
         return  $result;
     }
-    public static function findAll(): array
+    public static function findAll(): array|null
     {
         $sql = "select * from " . self::table();
         // $result = self::executeQuery($sql, "ExcuteSelect");

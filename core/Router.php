@@ -32,7 +32,7 @@ class Router
            }
            
         } else {
-           throw new RouteNotFoundException();
+        //    throw new RouteNotFoundException();
            
         }
         

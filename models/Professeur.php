@@ -4,7 +4,7 @@ namespace App\model;
 
 class Professeur extends Personne
 {
-    protected static string $role = " ROLE_PROFESSEUR";
+    protected static string $role = "ROLE_PROFESSEUR";
     // protected static string $table = "professeur";
     private string $grade;
 
@@ -60,17 +60,17 @@ class Professeur extends Personne
 
         return $this;
     }
-    public static function findAll(): array
+    public static function findAll(): array|null
     {
-        $sql = "select * from personne where role not like '".self::$role."'";
+        $sql = "select nom_complet,role,grade from personne where role like'".self::$role."'";
         return  parent::findBy($sql);
     }
 
-    public function insert(): int
-    {
-        $sql = "INSERT INTO personne (nom_complet, role, grade) VALUES (?,?,?)";
-        $db = self::executeQuery($sql, "excuteUpdate", [$this->fullName, self::$role, $this->grade]);
-        // die("in insert");
-        return $db;
-    }
+    // public function insert(): int
+    // {
+    //     $sql = "INSERT INTO personne (nom_complet, role, grade) VALUES (?,?,?)";
+    //     $db = self::executeQuery($sql, "excuteUpdate", [$this->fullName, self::$role, $this->grade]);
+    //     // die("in insert");
+    //     return $db;
+    // }
 }

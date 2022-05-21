@@ -13,7 +13,7 @@ $routers->route('/login', [ClasseController::class, "ListClass"]);
 $routers->route('/login', [ClasseController::class, "AddClassToTeacher"]);
 //resolving routers
 try {
-    $routes->resolve();
+    $routers->resolve();
 } catch (RouteNotFoundException $ex) {
     echo $ex->message;
 }

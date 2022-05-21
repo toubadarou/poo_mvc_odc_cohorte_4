@@ -8,7 +8,7 @@ interface IModel
     public function update(): int;
     //static methods
     public static function delete(int $id): int;
-    public static function findAll(): array;
+    public static function findAll(): array|null;
     public static function findById(int $id): object|null;
     public static function findBy(string $sql, array $data = [], $single = false): object|null|array;
 }
