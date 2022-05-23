@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 use App\Core\Controller;
-class DemandeController extends Controller{
+class AnneeScolaireController extends Controller{
     
     public function lister(){
         if($this->request->isGet()){

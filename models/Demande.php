@@ -1,102 +1,33 @@
 <?php
+namespace App\Models;
 
-namespace App\Model;
-
-use App\Model\AC;
-use App\Model\RP;
 use App\Core\Model;
-use App\Model\Etudiant;
 
-class Demande extends Model
-{
+class Demande extends Model{
+
     private int $id;
     private string $motif;
-    private \DateTime $date;
-    // Navigational functions:
-    //MenyToOne with RP
-    public function rp(): RP
-    {
-        return new RP;
+    private string $date;
+
+    public function etudiant():Etudiant{
+        $sql = "select e.* from etudiant e, ".parent::table()." d
+                where e.id = d.etudiant_id
+                and d.id = ?";
+        return parent::findBy($sql,[($this->id)],true);
     }
 
-    //MenyToOne with Etudiant
-    public function etudiant(): Etudiant
-    {
-        return new Etudiant;
+    public function rp():RP{
+        $sql = "select r.* from rp r, ".parent::table()." d
+                where r.id = d.rp_id
+                and d.id = ?";
+        return parent::findBy($sql,[$this->id],true);
     }
-
-    //MenyToOne with AC
-    public function ac(): AC
-    {
-        return new AC;
-    }
-    // construct function
-    public function __construct()
-    {
-        $this->table = "demande";
-    }
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of motif
-     */
-    public function getMotif()
-    {
-        return $this->motif;
-    }
-
-    /**
-     * Set the value of motif
-     *
-     * @return  self
-     */
-    public function setMotif($motif)
-    {
-        $this->motif = $motif;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of date
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set the value of date
-     *
-     * @return  self
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-    public static function findAll(): array
-    {
-        $sql = "select * from Demande";
-        return  parent::findBy($sql);
+    public function insert():int{
+        $db = parent::database();
+        $db->connexionBD();
+            $sql = "INSERT INTO `demande` (`motif`, `date`) VALUES (?,?)";
+            $result = $db->executeUpdate($sql,[$this->motif,$this->date]);
+        $db->closeConnexion();
+        return $result;
     }
 }

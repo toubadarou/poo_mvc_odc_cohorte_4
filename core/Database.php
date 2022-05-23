@@ -1,50 +1,29 @@
 <?php
-
 namespace App\Core;
-
-use PDO;
-
-
-
-class  Database
-{
-    protected \PDO|null $pdo = null;
-
-    public function connexionDB(): void
-    {
-        try {
-            // die;
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=poo_base', 'root', '');
-            echo "la connexion est passée \n";
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
-        }
+class Database{
+    private \PDO|null $pdo = null;
+    public function connexionBD():void{
+        $this->pdo = new \PDO("mysql:dbname=poo_base;host=localhost:3306", "root", "");
     }
-    public function closeConnexinDB(): void
-    {
+    public function closeConnexion():void{
         $this->pdo = null;
-        // echo "closeConnexinDB";
     }
-    public function excuteUpdate(string $sql, array $data = [], bool $single = false): int
-    {
+    public function executeSelect(string $sql, array $data=[],bool $single=false):object|array|null{
         $query = $this->pdo->prepare($sql);
         $query->execute($data);
-        // die("in executUpdate".var_dump($data).$sql);    
-        return $this->pdo->lastInsertId();
-    }
-    public function excuteSelect(string $sql, array $data = [], bool $single = false): object|array|null
-    {
-        $query = $this->pdo->prepare($sql);
-        // die("into excuteSelect ");
-        $re = $query->execute($data);
         if ($single) {
             $result = $query->fetch(\PDO::FETCH_OBJ);
-            if ($query->rowCount()==0) {
-                return null;
-            }
+            if($query->rowCount()==0) return null;
         } else {
             $result = $query->fetchAll(\PDO::FETCH_OBJ);
         }
         return $result;
     }
+    public function executeUpdate(string $sql, array $data=[]):int{
+        $query = $this->pdo->prepare($sql);
+        $query->execute($data);
+        return $query->rowCount();
+    }
+
+    
 }

@@ -1,47 +1,35 @@
 <?php
 
 namespace App\Core;
+use App\Models\User;
 
-use App\Model\User;
-
-
-class Session  
-{
+class Session{
     private User $user;
+
     public function __construct()
     {
-        if (session_status()==PHP_SESSION_NONE) {
+        if(session_status()==PHP_SESSION_NONE){
             session_start();
         }
     }
-    //add data into the session
-    public function setData(string $key,$data)
-    {
-        $_SESSIONSESSION[$key  ]=$data;
+    //Permet d'ajouter une donnée dans la session
+    public function set(string $key, $data){
+        $_SESSION[$key] = $data;
     }
-    // Get data fron thr session
-    public function getData(string $key)
-    {
-       return $_SESSION[$key];
+    public function get(string $key){
+        return $_SESSION[$key];
     }
-
-    /**
-     * Get the value of user
-     */ 
     public function getUser()
     {
         return $this->user;
     }
-
-    /**
-     * Set the value of user
-     *
-     * @return  self
-     */ 
     public function setUser($user)
     {
         $this->user = $user;
 
         return $this;
+    }
+    public static function is_connect():bool{
+        return isset($_SESSION['user-connect']);
     }
 }

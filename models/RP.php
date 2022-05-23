@@ -1,47 +1,47 @@
 <?php
+namespace App\Models;
+class RP extends User{
 
-namespace App\Model;
-
-use App\Model\User;
-
-
-
-class RP extends User
-{
-    protected static string $role = "ROLE_RP";
-
-    //Navigational functions:
-
-    //OneToMeny with Professeur
-    public function professeurs(): array
-    {
-        return [];
-    }
-
-    //OneToMeny with Classe
-    public function classes(): array
-    {
-        return [];
-    }
-
-    //OneToMeny with Demande
-    public function demandes(): array
-    {
-        return [];
-    }
     public function __construct()
     {
-        self::$role = "ROLE_RP";
+        parent::$role = "ROLE_RP";
     }
-    public static function findAll(): array|null
+
+    public function demandes():array{
+        $sql = "select d.* from demande d, ".parent::table()." p
+                where d.rp_id = p.id
+                and d.id = ?";
+        return parent::findBy($sql,[$this->id]);
+    }
+
+    public function classes():array{
+        $sql = "select c.* from classe c, ".parent::table()." p
+                where c.rp_id = p.id
+                and d.id = ?";
+        return parent::findBy($sql,[$this->id]);
+    }
+
+    public function professeurs():array{
+        $sql = "select d.* from demande e, ".parent::table()." p
+                where d.rp_id = p.id
+                and d.id = ?";
+        return parent::findBy($sql,[$this->id]);
+    }
+
+    public static function findAll(): array
     {
-        $sql = "SELECT id,nom_complet,login,password,role FROM `personne` WHERE role like'".self::$role."'";
-        return  parent::findBy($sql);
+        $sql = "select * from ".parent::table()." where role like 'ROLE_RP'";
+        return parent::findBy($sql,[]);
     }
-    public function insert(): int
-    {
-        $sql = "INSERT INTO personne (nom_complet, role, login,passWord) VALUES (?,?,?,?)";
-        $db = parent::executeQuery($sql, "excuteUpdate", [$this->fullName, self::$role, $this->login, $this->password]);
-        return $db;
+
+    public function insert():int{
+        $db = parent::database();
+        $db->connexionBD();
+            $sql = "INSERT INTO `personne` (`nom_complet`, `role`, `login`, `password`) VALUES (?,?,?,?)";
+            $result = $db->executeUpdate($sql,[$this->nomComplet,parent::$role,$this->login,$this->password]);
+        $db->closeConnexion();
+        return $result;
     }
+
+    
 }

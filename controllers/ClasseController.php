@@ -1,21 +1,13 @@
 <?php
 
-namespace App\Controllers;
-use App\Core\ControllerMother;
+namespace App\Controller;
+use App\Core\Controller;
+class ClasseController extends Controller{
 
-
-class ClasseController extends ControllerMother
-{
-    public function CreateClass()
-    {
+    public function listerClasse(){
+        $this->render("classes/liste");
     }
-
-    public function ListClass()
-    {
-        # code...
-    }
-    public function AddClassToTeacher()
-    {
-        # code...
+    public function creerClasse(){
+        $this->render("classes/creationClasse");
     }
 }

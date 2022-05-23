@@ -1,107 +1,67 @@
 <?php
+namespace App\Models;
+class Etudiant extends User{
 
-namespace App\Model;
-
-use App\Model\User;
-
-
-
-class Etudiant extends User
-{
-    // Instancing attributs
-    protected static string $role = "ROLE_ETUDIANT";
-    private int $matricule;
+    private string $matricule;
     private string $sexe;
     private string $adresse;
-
-    // Navigational functions:
-    //OneToMeny with Demande
-    public function demandes(): array|null
-    {
-        $sql = "select d.* from demande d,personne p
-                            where d.id=d.personne_id
-                            and p.role like 'ROLE_ETUDIANT'
-                            and p.id=?";
-        return parent::findById($sql, [$this->id]);
-    }
-
-    //OneToMeny with Inscription
-    public function inscriptions(): array|null
-    {
-        $sql = "select i.* from inscription i,personne p
-                            where i.id=i.personne_etudiant_id
-                            and p.role like 'ROLE_ETUDIANT'
-                            and p.id=?";
-        return parent::findById($sql, [$this->id]);
-    }
-    // construct function
+    
     public function __construct()
     {
-        // $this->role = "ROLE_ETUDIANT";
+        parent::$role = "ROLE_ETUDIANT";
     }
-
-    /**
-     * Get the value of matricule
-     */
     public function getMatricule()
     {
         return $this->matricule;
     }
-
-    /**
-     * Set the value of matricule
-     *
-     * @return  self
-     */
     public function setMatricule($matricule)
     {
         $this->matricule = $matricule;
-
         return $this;
     }
-
-    /**
-     * Get the value of sexe
-     */
     public function getSexe()
     {
         return $this->sexe;
     }
-
-    /**
-     * Set the value of sexe
-     *
-     * @return  self
-     */
     public function setSexe($sexe)
     {
         $this->sexe = $sexe;
-
         return $this;
     }
-
-    /**
-     * Get the value of adresse
-     */
     public function getAdresse()
     {
         return $this->adresse;
     }
-
-    /**
-     * Set the value of adresse
-     *
-     * @return  self
-     */
-    public function setAdresse($adresse)
+        public function setAdresse($adresse)
     {
         $this->adresse = $adresse;
-
         return $this;
+    }
+
+    public function inscription():array{
+        $sql = "select i.* from inscription i, ".parent::table()." ac
+                where i.ac_id = ac.id
+                and i.id = ?";
+        return parent::findBy($sql,[$this->id]);
+    }
+    public function demandes():array|null{
+        $sql = "select d.* from ".parent::table()." d, etudiant e
+                where d.etudiant_id=e.id
+                and e.id = ?";
+        return parent::findBy($sql,[$this->id]);
+    }
+    public function insert():int{
+        $db = parent::database();
+        $db->connexionBD();
+            $sql = "INSERT INTO `personne` (`nom_complet`, `role`, `login`, `password`, `matricule`, `sexe`, `adresse`) VALUES (?,?,?,?,?,?,?)";
+            $result = $db->executeUpdate($sql,[$this->nomComplet,parent::$role,$this->login,$this->password,$this->matricule,$this->sexe,$this->adresse]);
+        $db->closeConnexion();
+        return $result;
     }
     public static function findAll(): array
     {
-        $sql = "select * from  personne where role like '" . self::$role . "'";
-        return  parent::findBy($sql);
-    }
+        $sql = "select * from ".parent::table()." where role like 'ROLE_ETUDIANT'";
+        return parent::findBy($sql,[]);
+    } 
+    
 }

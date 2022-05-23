@@ -1,22 +1,12 @@
 <?php
 
-namespace App\Controllers;
-
-use App\Core\ControllerMother;
-
-
-
-
-class InscriptionController extends ControllerMother
-{
-    public function AddStudent()
-    {
-        # code...
+namespace App\Controller;
+use App\Core\Controller;
+class InscriptionController extends Controller{
+    
+    public function lister(){
+        if($this->request->isGet()){
+            
+        }
     }
-
-    public function ListStudents()
-    {
-        # code...
-    }
-
 }

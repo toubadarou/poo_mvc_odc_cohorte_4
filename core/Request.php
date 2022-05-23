@@ -3,19 +3,17 @@
 namespace App\Core;
 
 class Request{
-    public function getUri()
-    {
-        $uri=explode("/",$_SERVER['REQUEST_URI']);
-        unset($uri[0]);
-        return array_values($uri);
+
+    public function getUri(){
+        $url = explode("/",$_SERVER['REQUEST_URI']);
+        unset($url[0]);
+        return array_values($url);
     }
-    public function isGet()
-    {
+
+    public function isGet():bool{
         return $_SERVER['REQUEST_METHOD']=="GET";
     }
-    public function isPost()
-    {
+    public function isPost():bool{
         return $_SERVER['REQUEST_METHOD']=="POST";
     }
 }
-

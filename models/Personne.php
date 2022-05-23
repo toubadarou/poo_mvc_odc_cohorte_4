@@ -1,105 +1,48 @@
 <?php
-
-namespace App\Model;
-
+namespace App\Models;
 use App\Core\Model;
-
-abstract class Personne extends Model
-{
-    protected int $id;
-    protected  string $fullName;
-    protected static string $role;
-    protected static int $nbrPersonne;
-    
-    // construct function
-    public  function __construct()
-    {
-        // self::$table = "personne";
-    }
-    
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
+abstract class Personne extends Model{
+     protected int $id;
+     protected string $nomComplet;
+     protected static string $role;
+    //  private static int $nbrePersonne;
+	function __construct() {
+        
+	}
+    // Getters
+    public function getId():int{
         return $this->id;
     }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
+    
+    public function getNomComplet():string{
+        return $this->nomComplet;
+    }
+    // Setters
+    public function setId(int $id):self{
         $this->id = $id;
-
         return $this;
     }
-
-    /**
-     * Get the value of fullName
-     */
-    public function getFullName()
-    {
-        return $this->fullName;
-    }
-
-    /**
-     * Set the value of fullName
-     *
-     * @return  self
-     */
-    public function setFullName($fullName)
-    {
-        $this->fullName = $fullName;
-
+    public function setNomComplet(string $nomComplet):self{
+        $this->nomComplet = $nomComplet;
         return $this;
-    }
-
-    /**
-     * Get the value of role
-     */
+    } 
     public function getRole()
     {
         return $this->role;
-    }
-
-    /**
-     * Set the value of role
-     *
-     * @return  self
-     */
+    } 
     public function setRole($role)
     {
         $this->role = $role;
-
         return $this;
-    }
-
-    /**
-     * Get the value of nbrPersonne
-     */
-    public function getNbrPersonne()
+    } 
+    public function getNbrePersonne()
     {
-        return $this->nbrPersonne;
-    }
-
-    /**
-     * Set the value of nbrPersonne
-     *
-     * @return  self
-     */
-    public function setNbrPersonne($nbrPersonne)
-    {
-        $this->nbrPersonne = $nbrPersonne;
-
+        return $this->nbrePersonne;
+    } 
+     public function setNbrePersonne($nbrePersonne)
+     {
+        $this->nbrePersonne = $nbrePersonne;
         return $this;
-    }
-    public static function findAll(): array|null
-    {
-        $sql = "select * from personne";
-        return  parent::findBy($sql);
-    }
+     }
+
 }

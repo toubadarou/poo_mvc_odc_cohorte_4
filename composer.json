@@ -1,11 +1,10 @@
 {
     "name": "toubadarou/poo",
-    "license": "no",
     "autoload": {
         "psr-4": {
             "App\\Core\\": "core/",
-            "App\\Model\\": "models/",
-            "App\\Controllers\\": "controllers/",
+            "App\\Models\\": "models/",
+            "App\\Controller\\": "controllers/",
             "App\\Exception\\": "exceptions/"
         }
     },

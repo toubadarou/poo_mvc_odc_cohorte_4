@@ -1,23 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controller;
+use App\Core\Controller;
 
-use App\Core\ControllerMother;
-
-
-
-class ModuleController extends ControllerMother
- {
-    public function AddModuleToTeacher()
-    {
-        # code...
-    }
-    public function AddClassToTeacher()
-    {
-        # code...
-    }
-    public function ListModule()
-    {
-        # code...
+class ModuleController extends Controller{
+    public function ajouterModule(){
+        
     }
 }

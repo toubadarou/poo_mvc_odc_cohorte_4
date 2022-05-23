@@ -1,80 +1,37 @@
 <?php
-
-namespace App\Model;
-
-use App\Model\Personne;
-
-abstract class User extends Personne
-{
+namespace App\Models;
+abstract class User extends Personne{
     protected string $login;
-    protected string $passWord;
-
-    /**
-     * Get the value of login
-     */
+    protected string $password; 
     public function getLogin()
     {
         return $this->login;
-    }
-
-    /**
-     * Set the value of login
-     *
-     * @return  self
-     */
+    } 
+    
     public function setLogin($login)
     {
         $this->login = $login;
+        return $this;
+    } 
 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
         return $this;
     }
-
-    /**
-     * Get the value of passWord
-     */
-    public function getPassWord()
-    {
-        return $this->passWord;
+    
+    public static function findUserByLoginAndPassword(string $login, string $password):object|null{
+        return parent::findBy("select * from personne where login= ? and password= ?",[$login,$password],true);
     }
 
-    /**
-     * Set the value of passWord
-     *
-     * @return  self
-     */
-    public function setPassWord($passWord)
+    public static function findAll(): array
     {
-        $this->passWord = $passWord;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of role
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set the value of role
-     *
-     * @return  self
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-    public static function findAll(): array|null
-    {
-        $sql = "select * from personne where role not like 'ROLE_PROFESSEUR'";
-        return  parent::findBy($sql);
-    }
-    public static function findUserByLoginAndPassword(string $login, string $passWord)
-    {
-        return parent::findBy("select from personne where login=? and password=?", [$login, $passWord], true);
+        $sql = "select * from ".parent::table()." where role not like 'ROLE_PROFESSEUR' ";
+        return parent::findBy($sql);
     }
 }

@@ -1,0 +1,59 @@
+MLD
+Héritage
+
+--SingleTable : Toutes les classes qui participent dans l'héritage 
+    seront dans une table;
+personnes(id,nom_complet,login,password,role,grade,matricule,adresse,sexe)
+
+
+--Joined : Crée autant de tables que de classes mais la clé de la classe mère
+    migre commme clé étrangère au niveau des classses filles
+
+personnes(id,nom_complet,role)
+professeur(grade,#personne_id)
+user(login,password,#personne_id)
+rp(#personne_id)
+ac(#personne_id)
+etudiant(matricule,adresse,sexe,#personne_id)
+
+OneToMany => ManyToOne
+
+1->* //OneToMany
+*->1 //ManyToOne
+MLD => Clé du faible qui migre chez le fort
+annee_scolaire(id,libelle)
+inscription(#annee_id,#etudiant_id,#classe_id,#ac_id)
+
+ManyToMany => on crée une classe d'association
+classe(id,libelle,filiere,niveau)
+professeur_classe(#classe_id,#professeur_id)
+
+// Type de requêtes qu'on peut faire dans une base de données
+
+// Requetes de mis à jour de la table qui retournent toujours
+// un entier qui correspond au nombre de lignes modifiées sur la table
+insert
+update
+delete
+
+// Requete de selection retourne tjrs des données => Objet ou tableau
+select
+
+
+// Composer => Outil de Gestionnaire de Dépendance
+ 
+// Gestionnaire => un logiciel dont l'objectif est de télécharger une dépendance
+    et de la configurer dans notre projet.
+
+// Dépendances => Toutes les classes externes qu'on peut ajouter à notre projet
+    pour avoir des fonctionnalités suplémentaires
+
+// hub de dependances => site où on regroupe toutes les dépendances d'un langage
+
+// Requêtes non préparées => la variable est injectée lors de l'écriture de la requête
+// Exemple : $sql = "select * from ".self::table()." where id = $id";
+
+// Requêtes préparées => la variable est injectée lors de l'exécution de la requête
+// Exemple : $sql = "select * from ".self::table()." where id = ?";
+
+

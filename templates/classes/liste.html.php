@@ -1,0 +1,1 @@
+<h1 class="text-light bg-info text-center">Liste des classe</h1>

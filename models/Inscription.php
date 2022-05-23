@@ -1,96 +1,40 @@
 <?php
-
-namespace App\Model;
-
+namespace App\Models;
 use App\Core\Model;
+class Inscription extends Model{
 
-
-class Inscription extends Model
-{
-    //instance attributs
-    private int $id;
-    private \DateTime $date;
-    //Navigational attributs 
-    //MenyTo One Inscription=>AC
-    // private array $inscription;
-
-    //Navigational functions
-    //MenyToOne with AC
-    public function  ac(): AC
-    {
-        $sql = "select p.* from personne p,inscription i
-                            where p.id=i.personne_ac_id
-                            and p.role like 'ROLE_AC'
-                            and i.id=?";
-        return parent::findById($sql, [$this->id]);
-    }
-    //MenyToOne with AnneeScolaire
-    public function  anneescolair(): AnneeScolaire
-    {
-        $sql = "select a.* from annee_scolair a,inscription i
-        where a.id=i.annee_scolair_id
-        and i.id=?";
-        return parent::findById($sql, [$this->id]);
-    }
-
-    //MenyToOne with Etudiant
-    public function  etudiant(): Etudiant
-    {
-        $sql = "select p.* from personne p,inscription i
-        where p.id=i.personne_etudiant_id
-        and p.role like 'ROLE_ETUDIANT'
-        and i.id=?";
-        return parent::findById($sql, [$this->id]);
-    }
-
-    // construct function
     public function __construct()
     {
-        $this->table = "inscription";
+        
+    }
+    private int $id;
+    // ManyToOne => AC
+    public function ac():AC{
+        $sql = "select p.* from ".parent::table()." i, personne p 
+                where p.id = i.ac_id 
+                and p.role like 'ROLE_AC'
+                and i.id = ?";
+        return parent::findBy($sql,[$this->id],true); 
     }
 
-    /**
-     * Get the value of date
-     */
-    public function getDate()
-    {
-        return $this->date;
+    public function anneeScolaire():AnneeScolaire{
+        $sql = "select a.* from ".parent::table()." i, annee_scolaire a 
+                where a.id = i.annee_id 
+                and i.id = ?";
+        return parent::findBy($sql,[$this->id],true);
     }
-
-    /**
-     * Set the value of date
-     *
-     * @return  self
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
+    public function etudiant():Etudiant{
+        $sql = "select p.* from personne p ".parent::table()." i
+                where i.etudiant_id = p.id
+                and p.role like 'ROLE_ETUDIANT'
+                and i.id = ?";
+        return parent::findBy($sql,[$this->id],true);
     }
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
-    {
-        return $this->id;
+    public function classe():Classe{
+        $sql = "select c.* from classe c ".parent::table()." i
+                where i.classe_id = c.id
+                and i.id = ?";
+        return parent::findBy($sql,[$this->id],true);
     }
-
-    /**
-     * Set the value of id
-     *
-     * @return  self
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-    public static function findAll(): array
-    {
-        $sql = "select * from  inscription";
-        return  parent::findBy($sql);
-    }
+    
 }
